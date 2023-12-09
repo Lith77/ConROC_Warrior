@@ -357,6 +357,10 @@ function ConROC.Warrior.Damage(_, timeShift, currentSpell, gcd)
 	
 	if IsSpellKnown(_Rend) then
 		tarInMelee = ConROC:Targets(_Rend);
+	elseif IsSpellKnown(_HeroicStrike) then
+		tarInMelee = ConROC:Targets(_HeroicStrike);
+	else
+		tarInMelee = ConROC:Targets(6603);
 	end
 	if ConROC_AoEButton:IsVisible() and IsSpellKnown(_ThunderClap) then
 		tarInAoe = ConROC:Targets(_ThunderClap);
@@ -454,7 +458,7 @@ function ConROC.Warrior.Damage(_, timeShift, currentSpell, gcd)
 
 	if ConROC:CheckBox(ConROC_SM_Rage_HeroicStrike) and hStrikeRDY and rage >= 85 and ((tarInMelee >= 1 and not ConROC:CheckBox(ConROC_SM_Rage_Cleave)) or (tarInMelee == 1 and ConROC:CheckBox(ConROC_SM_Rage_Cleave))) then
 		return _HeroicStrike;
-	end	
+	end
 	return nil;
 	--if currentSpecName == "Arms" then
 	--elseif currentSpecName == "Fury" then
