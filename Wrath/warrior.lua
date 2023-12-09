@@ -401,6 +401,8 @@ function ConROC.Warrior.Damage(_, timeShift, currentSpell, gcd)
 	
 	if IsSpellKnown(_Rend) then
 		tarInMelee = ConROC:Targets(_Rend);
+	elseif IsSpellKnown(_HeroicStrike) then
+		tarInMelee = ConROC:Targets(_HeroicStrike);
 	end
 	if ConROC_AoEButton:IsVisible() and IsSpellKnown(_Shockwave) then
 		tarInAoe = ConROC:Targets(_Shockwave);
