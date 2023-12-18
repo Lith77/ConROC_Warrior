@@ -1,6 +1,4 @@
 Ver 2.0.2
-	-Corrected the rangecheck to also include Heroic Strike
-	-Updated the default checked options, delete your ConROC_Warrior.lua in the SavedVariables for your character if you haven't learned Cleave
 	-Support for Classic And Classic Wrath
 	-Started to add support for translations.
 Ver 2.0.0

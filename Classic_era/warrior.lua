@@ -116,6 +116,7 @@ local _SunderArmor = Prot_Ability.SunderArmorRank1;
 local _Taunt = Prot_Ability.Taunt;
 local sArmorEXP = 0;
 
+function ConROC:UpdateSpellID()
 --Ranks
 --Arms
 if IsSpellKnown(Arms_Ability.ChargeRank3) then _Charge = Arms_Ability.ChargeRank3;
@@ -254,6 +255,8 @@ ids.optionMaxIds = {
 	SunderArmor = _SunderArmor,
 	Taunt = _Taunt,
 }
+end
+ConROC:UpdateSpellID()
 function ConROC:EnableRotationModule()
 	self.Description = 'Warrior';
 	self.NextSpell = ConROC.Warrior.Damage;
@@ -266,19 +269,11 @@ function ConROC:EnableRotationModule()
 end
 function ConROC:PLAYER_TALENT_UPDATE()
 	ConROC:SpecUpdate();
-	if ConROCSpellmenuFrame:IsVisible() then
-		ConROCSpellmenuFrame_CloseButton:Hide();
-		ConROCSpellmenuFrame_Title:Hide();
-		ConROCSpellmenuClass:Hide();
-		ConROCSpellmenuFrame_OpenButton:Show();
-		optionsOpened = false;
-		ConROCSpellmenuFrame:SetSize((90) + 14, (15) + 14)
-	else
-		ConROCSpellmenuFrame:SetSize((90) + 14, (15) + 14)
-	end
+    ConROC:closeSpellmenu();
 end
 
 function ConROC.Warrior.Damage(_, timeShift, currentSpell, gcd)
+ConROC:UpdateSpellID()
 --Character
 	local plvl 												= UnitLevel('player');
 	
@@ -357,10 +352,6 @@ function ConROC.Warrior.Damage(_, timeShift, currentSpell, gcd)
 	
 	if IsSpellKnown(_Rend) then
 		tarInMelee = ConROC:Targets(_Rend);
-	elseif IsSpellKnown(_HeroicStrike) then
-		tarInMelee = ConROC:Targets(_HeroicStrike);
-	else
-		tarInMelee = ConROC:Targets(6603);
 	end
 	if ConROC_AoEButton:IsVisible() and IsSpellKnown(_ThunderClap) then
 		tarInAoe = ConROC:Targets(_ThunderClap);
@@ -458,7 +449,7 @@ function ConROC.Warrior.Damage(_, timeShift, currentSpell, gcd)
 
 	if ConROC:CheckBox(ConROC_SM_Rage_HeroicStrike) and hStrikeRDY and rage >= 85 and ((tarInMelee >= 1 and not ConROC:CheckBox(ConROC_SM_Rage_Cleave)) or (tarInMelee == 1 and ConROC:CheckBox(ConROC_SM_Rage_Cleave))) then
 		return _HeroicStrike;
-	end
+	end	
 	return nil;
 	--if currentSpecName == "Arms" then
 	--elseif currentSpecName == "Fury" then
